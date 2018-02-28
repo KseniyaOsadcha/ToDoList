@@ -1,0 +1,207 @@
+/*helpers*/
+
+.pull-r{
+    float: right;
+}
+.inline{
+    display: inline-block;
+}
+.block{
+    display: block;
+}
+.rel{
+    position: relative;
+}
+.abs{
+    position: absolute;
+}
+#block{
+    display: block;
+}
+#block-none{
+    display: none;
+}
+
+
+/*body*/
+
+body{
+    background: url('img/bg.jpg') no-repeat;
+    background-size: cover;
+}
+
+/*completed task*/
+
+.completed {
+    text-decoration: line-through;
+    color: grey !important;  
+  }
+
+/*menu, clock, header*/
+
+.title{
+    position: relative;
+    margin: 0 auto;
+    width: 45rem;
+    background: url('img/title.jpg') no-repeat;
+    color: #fff;
+    text-align: center;
+    padding-top: 0.5rem;
+    padding-bottom:0.5rem;
+    margin-top: 8rem;
+}
+.todo-numb{
+    font-size: 1.2rem;
+    left: 1rem;
+}
+.title-time{
+    margin-top: 3.2rem;
+    font-size: 3.2rem;
+    margin-bottom: 1rem;
+}
+.title-date{
+    font-size: 2.4rem;
+    margin-bottom: 1rem;
+}
+.todo-text{
+    max-width: 44rem;
+}
+.icon-setting{
+    position: absolute;
+    right: 2rem;
+    top: 1rem;
+    font-size: 2rem;
+    z-index: 20;
+}
+
+.menu{
+    margin: 0 auto;
+    width: 45rem;
+    background: url('img/title.jpg') no-repeat;
+    background-size: cover;
+    padding-top: 0.5rem;
+    padding-bottom:0.5rem;
+    top: 0rem;
+    z-index: 19;
+}
+#menu{
+    display: none;
+}
+.menu-ul{
+    list-style: none;
+    color: #ffffff;
+    padding: 0.4rem;
+    text-align: center;
+    font-size: 2rem;
+}
+li{
+    padding: 0.4rem;
+}
+
+/*task list*/
+
+.tasks{
+    margin: 0 auto;
+    background: rgba(255, 240, 240, 0.87);
+    width: 45rem;
+    padding-top: 1rem;
+    min-height: 20rem;
+}
+.todo{
+    padding-left: 1rem;
+    border-bottom: 0.2rem solid rgba(126, 37, 37, 0.5);
+}
+
+.todo-title{
+    text-align: center;
+    font-size: 1.6rem;
+    padding-top: 2rem; 
+    padding-bottom: 1rem;
+}
+
+
+.todo-time{
+    top: 0.5rem;
+    left: 3rem;
+}    
+.icons{
+    right: 3rem;
+    top: 0.5rem;
+}
+.ic-ready{
+
+}
+.ic-edit .ic-del{
+    color: blueviolet;
+    font-size: 1.8rem;
+}
+
+/*style for priority*/
+
+#middle{
+    color: rgb(209, 145, 25);
+}
+#middle::before, #middle::after{
+    content: "*";
+    font-weight: bold;
+}
+#hight{
+    color: rgb(143, 2, 2);
+}
+#hight::before, #hight::after{
+    content: "!";
+    font-weight: bold;
+}
+
+/*add new task*/
+.btn-add{
+    text-decoration: none;
+    outline: none;
+    padding: 12px 40px;
+    margin: 0 auto;
+    border-radius: 30px;
+    background-image: linear-gradient(45deg, #6ab1d7 0%, #33d9de 50%, #002878 100%);
+    background-position: 100% 0;
+    background-size: 200% 200%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 24px;
+    color: white;
+    box-shadow: 0 16px 32px 0 rgba(0,40,120,.35);
+    transition: .5s;  
+    text-align: center;
+    width: 10rem;
+}
+.btn-add:hover {
+    box-shadow: 0 0 0 0 rgba(0,40,120,0);
+    background-position: 0 0;
+}
+/*input form*/
+.bl_form input {
+  padding-top: 15px;
+  background: linear-gradient(to bottom right, rgba(127, 200, 248, 0.8),rgba(42, 31, 138, 0.5), rgba(89, 25, 126, 0.5), rgba(42, 31, 138, 0.8), rgba(18, 2, 75, 0.9));
+  box-shadow: 0 2px 8px rgba(7, 49, 97, 0.411);
+  border: none;
+  color: rgb(255, 255, 255);
+  padding: 15px 20px;
+  border-radius: 25px;
+  font-size: 16px;
+  margin-left: 5rem;
+  margin-bottom: 2rem;
+  outline: none;
+  
+}  
+::-webkit-input-placeholder {color:rgba(192, 232, 255, 0.8);}
+::-moz-placeholder          {color:rgba(192, 232, 255, 0.8);}/* Firefox 19+ */
+:-moz-placeholder           {color:rgba(192, 232, 255, 0.8);}/* Firefox 18- */
+:-ms-input-placeholder      {color:rgba(192, 232, 255, 0.8);}
+
+.add-tasks{
+    background:  linear-gradient(rgba(192, 232, 255, 0.3), rgba(28, 24, 54, 0.7));
+}
+.add-tasks h1{
+    color: rgb(255, 255, 255);
+    font-family: 'Pacifico';
+    text-align: center;
+    margin-bottom: 3rem;
+    margin-top: 2rem;
+} 
