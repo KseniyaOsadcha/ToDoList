@@ -27,7 +27,7 @@
 
     <script type="text/babel">
     
-    const Title = ({todolist, date, getmenu, menu, chooseDisplay}) => {
+    const Title = ({todolist, date, getmenu, menu, chooseDisplay, chooseSort, deleteAll}) => {
       let count = 0;
       todolist.forEach((todo) => {
         todo.completed? null:count++;
@@ -118,12 +118,18 @@
                 chooseDisplay(1);
               }}>Add new task</li>
               <li onClick={() => {
+                getmenu();               
+                chooseSort(sortTime);
               }}>Sort by time</li>
               <li onClick={() => {
+                getmenu();               
+                chooseSort(!sortTime);
               }}>Sort by priority</li>
               <li onClick={() => {
               }}>Delete all done</li>
               <li onClick={() => {
+                getmenu();                
+                deleteAll();
               }}>Delete all tasks</li>
             </ul>
           </div>      
@@ -214,11 +220,14 @@
       super(props);
       this.tick = this.tick.bind(this)     
       this.getMenu = this.getMenu.bind(this)
+      this.chooseSort = this.chooseSort.bind(this)
+      this.sort = this.sort.bind(this)
       this.removeTodo = this.removeTodo.bind(this)
       this.indexOfElement = this.indexOfElement.bind(this)
       this.completeTodo = this.completeTodo.bind(this)
       this.addTodo = this.addTodo.bind(this)
       this.chooseDisplay = this.chooseDisplay.bind(this)
+      this.deleteAll = this.deleteAll.bind(this)
       this.state = {
         date: new Date(),
         menu: false,
@@ -252,7 +261,40 @@
         let menu = this.state.menu;
         this.setState({menu: !menu});
       }
-      
+      chooseSort(parametr){
+      this.setState({sort: parametr});
+      this.sort(parametr);
+    }
+    sort(parametr){
+      let data = this.state.data;
+      let i = 0, j , currentDataTime, currentData;
+      if(parametr){
+        for (i = 0; i < data.length; i++){
+          currentDataTime = data[i].time;
+          currentData = data[i];
+          j = i - 1;
+          while (j >= 0 && data[j].time > currentDataTime){
+            data[j + 1] = data[j];
+            j--;  
+          }
+          data[j + 1] = currentData;
+        } 
+      } 
+      else{
+        for (i = 0; i < data.length; i++){
+          currentDataTime = data[i].prior;
+          currentData = data[i];
+          j = i - 1;
+          while (j >= 0 && data[j].prior > currentDataTime){
+            data[j + 1] = data[j];
+            j--;  
+          }
+          data[j + 1] = currentData;
+        } 
+      }
+      console.log(data);
+      this.setState({data: data});
+    }
       indexOfElement(todo){
         let data = this.state.data;
         let indexOf = -1
@@ -318,6 +360,7 @@
           data.push({title: todoTitle, completed: false, time: todoTime, prior: inputPrior});
           this.setState({data: data});
           console.log(this.state.data);
+          this.sort(this.state.sort);
           this.chooseDisplay(0);  
         }
       }
@@ -347,7 +390,11 @@
         }
         this.setState({display: display});
       }
-      
+      deleteAll(){
+        let data = this.state.data;
+        data.splice(0, data.length);
+        this.setState({data: data});
+      }
 
       render() {
       return (
@@ -358,6 +405,8 @@
             getmenu = {this.getMenu} 
             menu={this.state.menu}
             chooseDisplay={this.chooseDisplay}
+            chooseSort = {this.chooseSort}  
+            deleteAll = {this.deleteAll}          
           />
           <TodoList 
             todolist={this.state.data}
