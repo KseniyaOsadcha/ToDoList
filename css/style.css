@@ -97,6 +97,27 @@ body{
 li{
     padding: 0.4rem;
 }
+/*menu li hover style*/
+span:hover {
+    transition: 200ms;
+    color: #ffdcb4;
+    background: linear-gradient(to bottom right, rgba(255, 168, 37, 0.3),rgba(245, 126, 15, 0.3), rgba(89, 25, 126, 0.3), rgba(42, 31, 138, 0.1), rgba(18, 2, 75, 0.01));
+} 
+span{
+    padding-left: 0.8rem;
+    padding-right: 1.5rem;    
+}
+span::before{
+    content: '';
+    position: absolute;
+    border-color: rgb(255, 168, 37);
+    border-style: solid;
+    border-width: 0.1rem 0 0 0.1rem;
+    height: 0.8rem;
+    top: 0rem;
+    left: 0rem;
+    width: 0.8rem;
+}
 
 /*task list*/
 
@@ -104,37 +125,38 @@ li{
     margin: 0 auto;
     background: rgba(255, 240, 240, 0.87);
     width: 45rem;
-    padding-top: 1rem;
     min-height: 20rem;
+    border-top: 0.2rem solid rgba(126, 37, 37, 0.5);
+    
 }
 .todo{
-    padding-left: 1rem;
     border-bottom: 0.2rem solid rgba(126, 37, 37, 0.5);
 }
 
 .todo-title{
     text-align: center;
     font-size: 1.6rem;
-    padding-top: 2rem; 
-    padding-bottom: 1rem;
+    padding-top: 3rem; 
+    padding-bottom: 1rem; 
+    max-width: 44rem;
+    font-family: 'Satisfy', cursive;
 }
-
 
 .todo-time{
     top: 0.5rem;
     left: 3rem;
+    font-size: 1.2rem;
+    font-family: 'Lora', serif;
 }    
 .icons{
     right: 3rem;
     top: 0.5rem;
 }
-.ic-ready{
+.ic-todo {
+    font-size: 1.2rem;
+    margin-right: 0.5rem;
+}
 
-}
-.ic-edit .ic-del{
-    color: blueviolet;
-    font-size: 1.8rem;
-}
 
 /*style for priority*/
 
@@ -205,3 +227,63 @@ li{
     margin-bottom: 3rem;
     margin-top: 2rem;
 } 
+/*select priority*/
+.add-prior{
+    margin-left: 5rem;
+    margin-bottom: 4rem;
+}
+.add-prior p{
+    font-size: 1.4rem;
+    margin-left: 5rem;
+    color: #fff;
+}
+.edit-prior {    
+    margin-left: 5rem;
+    margin-bottom: 4rem;
+}
+.text-prior{ 
+    font-size: 1.4rem;
+    margin-left: 5rem;
+    color: #fff;
+    margin-bottom: -0.1rem;
+}
+select{
+    border-radius: 20px 20px 0px 0px;
+    background: linear-gradient(to bottom right, rgba(48, 138, 197, 0.8),rgba(42, 31, 138, 0.5), rgba(89, 25, 126, 0.5), rgba(42, 31, 138, 0.8), rgba(18, 2, 75, 0.9));
+    border: none;
+    font-size: 1rem;
+    height: 2.4rem;
+    padding-left: 5rem; 
+    width: 14.4rem;
+    color: rgba(255, 255, 255, 0.822);
+    text-align: center;
+}
+select:focus {
+    outline: none;
+  }
+
+option{
+    background: #372561;
+    font-size: 1rem;
+    text-align: center;   
+}
+#option-simple{
+    color: #82acff; 
+}
+#option-middle{
+    color: #ffb46e;
+}
+#option-hight{
+    color: #ff705d;
+}
+
+/*error message*/
+.error-message{
+    font-size: 1.4rem;
+    color: #ffb066;
+    margin-left: 1.2rem;
+    box-shadow: 0 4px 6px rgba(137, 181, 231, 0.945);
+    border-radius: 30px;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+}

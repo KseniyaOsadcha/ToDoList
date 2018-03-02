@@ -5,7 +5,9 @@
   <meta name="viewport" content="width=device-width">
   <title>ToDolist</title>
   <script defer src="https://use.fontawesome.com/releases/v5.0.6/js/all.js"></script>
+  <link href="https://fonts.googleapis.com/css?family=Satisfy|Open+Sans|Lora" rel="stylesheet">
   <link rel="stylesheet" href="css/style.css">
+  
 </head>
 <body>
 
@@ -112,25 +114,25 @@
               <li onClick={() => {
                 getmenu();
                 chooseDisplay(0);
-              }}><a >Home</a></li>
+              }}><span className="rel">Home</span></li>
               <li onClick={() => {
                 getmenu(); 
                 chooseDisplay(1);
-              }}>Add new task</li>
+              }}><span className="rel">Add new task</span></li>
               <li onClick={() => {
                 getmenu();               
                 chooseSort(sortTime);
-              }}>Sort by time</li>
+              }}><span className="rel">Sort by time</span></li>
               <li onClick={() => {
                 getmenu();               
                 chooseSort(!sortTime);
-              }}>Sort by priority</li>
+              }}><span className="rel">Sort by priority</span></li>
               <li onClick={() => {
-              }}>Delete all done</li>
+              }}><span className="rel">Delete all done</span></li>
               <li onClick={() => {
                 getmenu();                
                 deleteAll();
-              }}>Delete all tasks</li>
+              }}><span className="rel">Delete all tasks</span></li>
             </ul>
           </div>      
         </div>
@@ -155,15 +157,15 @@
             </div>
             <p id="add-time-error"></p>
             <div className="add-prior">
-            Priority
-              <select ref={node => {
-                inputPrior = node;
-              }} >
-                <option value="simple">Simple</option>
-                <option value="middle">Middle</option>
-                <option value="hight">Hight</option>            
-              </select>
-            </div>
+              <p>Priority:</p>
+                <select ref={node => {
+                  inputPrior = node;
+                }} >
+                  <option id="option-simple" value="simple">Simple</option>
+                  <option id="option-middle" value="middle">Middle</option>
+                  <option id="option-hight" value="hight">Hight</option>            
+                </select>
+              </div>
             <div className="btn-add" onClick={() => {
               addTodo(inputTask.value, inputTime.value, inputPrior.value);
             }}>
