@@ -145,109 +145,154 @@
       );
     }
   
-     const AddTask = ({addTodo, chooseDisplay, display}) => {
-        let inputTask, inputTime, inputPrior;
-        return (
-          <div className="tasks add-tasks" id = {display.add? "block" : "block-none"}>
-            <h1>Add new task</h1>
-            <div className="bl_form">
-              <input ref={node => {
-                inputTask = node;
-              }} placeholder="Add title" maxLength={40}/>
-            </div>
-            <p id="add-title-error"></p>
-            <div className="bl_form">
-              <input ref={node => {
-                inputTime = node;
-              }} placeholder="Add time" className ="time"/>
-            </div>
-            <p id="add-time-error"></p>
-            <div className="add-prior">
-              <p>Priority:</p>
-                <select ref={node => {
-                  inputPrior = node;
-                }} >
-                  <option id="option-simple" value="simple">Simple</option>
-                  <option id="option-middle" value="middle">Middle</option>
-                  <option id="option-hight" value="hight">Hight</option>            
-                </select>
-              </div>
-            <div className="btn-add" onClick={() => {
-              addTodo(inputTask.value, inputTime.value, inputPrior.value);
-            }}>
-                +Add
-            </div>
-          </div>
-        );
-    }
+    const AddTask = ({addTodo, chooseDisplay, display}) => {
 
-    
- 
-    const Todo = ({todo, remove, complete, chooseDisplay}) => {
-      // Each Todoid={getproir(todo)}
+      let inputTask, inputTime, inputPrior;
       return (
-        <div className="todo rel ii" >
-          <div className="icons abs block">
-              <div className="inline ic-ready" onClick={()=> {complete(todo)}}>
-                  <input type="checkbox"/><label for="checkbox" id={todo.completed == true? "label-check" : "label-uncheck"}><i className="fas fa-check-circle"></i></label>
-              </div>
-              <div className="inline ic-edit" onClick={() => {
-                
-              }}>
-              <i className="far fa-edit"></i>
-              </div>
-              <div className="inline ic-del" onClick={()=> {remove(todo)}}><i className="fas fa-trash-alt"></i></div>
+        
+        <div className="add-tasks" id = {display.add? "block" : "block-none"}>
+          <h1>Add new task</h1>
+          <div className="bl_form">
+            <input ref={node => {
+              inputTask = node;
+            }} placeholder="Add title" maxLength={40}/>
+            <p className="inline error-message" id="add-title-error"></p>
           </div>
-          <div className="todo-time abs">{todo.time}</div>
-          <div className={todo.completed?'completed todo-title':'todo-title'} id={todo.prior}>{todo.title}</div>
-
-        </div>
-      );
-    }
-
-    const TodoList = ({todolist, remove, complete, chooseDisplay, display}) => {
-      // Map through the todolist
-      const todoItem = todolist.map((todo) => {
-        return (
-          <Todo 
-            todo={todo}
-            remove={remove} 
-            complete={complete} 
-            chooseDisplay={chooseDisplay}
-          />)
-      });
-      return (
-        <div className='tasks' id = {display.list? "block" : "block-none"}>
-          {todoItem}
+          <div className="bl_form">
+            <input ref={node => {
+              inputTime = node;
+            }} placeholder="Add time" className ="time"/>
+            <p className="inline error-message" id="add-time-error"></p>
+          </div>
+          <div className="add-prior">
+          <p>Priority:</p>
+            <select ref={node => {
+              inputPrior = node;
+            }} >
+              <option id="option-simple" value="simple">Simple</option>
+              <option id="option-middle" value="middle">Middle</option>
+              <option id="option-hight" value="hight">Hight</option>            
+            </select>
+          </div>
+          <div className="btn-add" onClick={() => {
+            addTodo(inputTask.value, inputTime.value, inputPrior.value);
+          }}>
+              +Add
+          </div>
         </div>
       );
     }
   
+
+    
+const EditTask = ({editTodo, data, index, display}) => {
+  let inputTask, inputTime, inputPrior;
+  return (
+      <div className="add-tasks" id = {display.edit? "block" : "block-none"}>
+        <h1>Edit task</h1>
+        <div className="bl_form">
+          <input  maxLength={40} ref={node => {
+            inputTask = node;
+          }} placeholder={index == -1? "Title": data[index].title} />
+          <p className="inline error-message" id="edit-title-error"></p>
+        </div>
+        <div className="bl_form">
+          <input ref={node => {
+            inputTime = node;
+          }} placeholder={index == -1? "Time": data[index].time} className ="time" />
+          <p className="inline error-message" id="edit-time-error"></p>
+        </div>
+        <div className="edit-prior">
+          <p className="text-prior">Priority:</p>
+            <select ref={node => {
+              inputPrior = node;
+            }} >
+              <option id="option-simple" value="simple">Simple</option>
+              <option id="option-middle" value="middle">Middle</option>
+              <option id="option-hight"  value="hight">Hight</option>            
+            </select>
+            <p  className="inline error-message" id="edit-prior-error"></p>   
+        </div>         
+        <div className="btn-add" onClick={() => {
+          editTodo(inputTask.value, inputTime.value, index, inputPrior.value);
+          }}>
+            +Edit
+        </div>
+      </div>
+  );
+}
+ 
+const Todo = ({todo, remove, complete, editindex, chooseDisplay}) => {
+  // Each Todoid={getproir(todo)}
+  return (
+    <div className="todo rel ii" >
+      <div className="icons abs block">
+          <div className="inline ic-todo" onClick={()=> {complete(todo)}}>
+            <input type="checkbox"/><label for="checkbox" id={todo.completed == true? "label-check" : "label-uncheck"}><i className="fas fa-check-circle"></i></label>
+          </div>
+          <div className="inline ic-todo" onClick={() => {
+            editindex(todo);
+            chooseDisplay(2);
+          }}>
+          <i className="far fa-edit"></i>
+          </div>
+          <div className="inline ic-todo" onClick={()=> {remove(todo)}}><i className="fas fa-trash-alt"></i></div>
+      </div>
+      <div className="todo-time abs">{todo.time}</div>
+      <div className={todo.completed?'completed todo-title':'todo-title'} id={todo.prior}>{todo.title}</div>
+      
+    </div>
+    );
+}
+
+const TodoList = ({todolist, remove, complete, editindex, chooseDisplay, display}) => {
+  // Map through the todolist
+  const todoItem = todolist.map((todo) => {
+    return (
+      <Todo 
+        todo={todo}
+        remove={remove} 
+        complete={complete} 
+        editindex = {editindex} 
+        chooseDisplay={chooseDisplay}
+      />)
+  });
+  return (
+    <div className='tasks' id = {display.list? "block" : "block-none"}>
+      {todoItem}
+    </div>
+  );
+}
+  
     class TodoApp extends React.Component {
       constructor(props) {
-      super(props);
-      this.tick = this.tick.bind(this)     
-      this.getMenu = this.getMenu.bind(this)
-      this.chooseSort = this.chooseSort.bind(this)
-      this.sort = this.sort.bind(this)
-      this.removeTodo = this.removeTodo.bind(this)
-      this.indexOfElement = this.indexOfElement.bind(this)
-      this.completeTodo = this.completeTodo.bind(this)
-      this.addTodo = this.addTodo.bind(this)
-      this.chooseDisplay = this.chooseDisplay.bind(this)
-      this.deleteAll = this.deleteAll.bind(this)
-      this.state = {
-        date: new Date(),
-        menu: false,
-        display: {list: true, add: false, edit: false},
-        data: [
-          {title: "buy milk",completed: false,time: "11:30", prior: "middle"},
-          {title: "send letter",completed: false,time: "00:23", prior: "simple"},
-          {title: "meet with friend",completed: false,time: "21:40", prior: "hight"},
-          {title: "buy milkiiiiii",completed: false,time: "11:30", prior: "simple"}          
-        ] 
-        
-      }
+        super(props);
+        this.tick = this.tick.bind(this)     
+        this.getMenu = this.getMenu.bind(this)
+        this.chooseSort = this.chooseSort.bind(this)
+        this.sort = this.sort.bind(this)
+        this.removeTodo = this.removeTodo.bind(this)
+        this.indexOfElement = this.indexOfElement.bind(this)
+        this.completeTodo = this.completeTodo.bind(this)
+        this.editIndex = this.editIndex.bind(this)
+        this.addTodo = this.addTodo.bind(this)
+        this.editTodo = this.editTodo.bind(this)
+        this.chooseDisplay = this.chooseDisplay.bind(this)
+        this.deleteAll = this.deleteAll.bind(this)
+        this.state = {
+          date: new Date(),
+          menu: false,
+          sort: true,
+          display: {list: true, add: false, edit: false},
+          iedit: -1,
+          data: [
+            {title: "buy milk",completed: false,time: "11:30", prior: "middle"},
+            {title: "send letter",completed: false,time: "00:23", prior: "simple"},
+            {title: "meet with friend",completed: false,time: "21:40", prior: "hight"},
+            {title: "buy milkiiiiii",completed: false,time: "11:30", prior: "simple"}          
+          ] 
+          
+        }
       }
       componentDidMount() {
         this.timerID = setInterval(
@@ -372,6 +417,69 @@
           this.chooseDisplay(0);  
         }
       }
+        
+      editTodo(todoTitle, todoTime, index, inputPrior){   
+        document.getElementById('edit-title-error').innerHTML = '';
+        document.getElementById('edit-time-error').innerHTML = '';
+        document.getElementById('edit-prior-error').innerHTML = '';
+        let data = this.state.data;
+        let myBool = false;
+        let isNewTitle = true;
+        let isNewTime = true;
+        let isNewPrior = true;
+        let isTimeError = false;
+        let min, sec, titleExist = false;
+        data.forEach((todo) => {
+        if(todoTitle.trim() == todo.title){
+          isNewTitle = false;
+          titleExist = true;
+        }
+        });
+        if(todoTitle.trim() == "" || data[index].title == todoTitle.trim())
+          isNewTitle = false;
+        if(todoTime =="" || todoTime == data[index].time)
+          isNewTime = false;
+        else{
+          min = parseInt(todoTime[0] + todoTime[1]);
+          sec = parseInt(todoTime[3] + todoTime[4]);
+          if(min > 23 || sec > 59 || todoTime.length != 5) isTimeError = true;
+        }
+        if(inputPrior == data[index].prior)
+          isNewPrior = false;
+        if(!isTimeError){
+          if(isNewTitle == true || isNewTime == true || isNewPrior == true){
+            myBool = true;
+            isNewTitle? null : todoTitle = data[index].title;
+            isNewTime? null : todoTime = data[index].time;
+            isNewPrior? null : inputPrior = data[index].prior;
+          }
+          else if(data[index].title == todoTitle.trim()){
+            document.getElementById('edit-title-error').innerHTML = 'The title did not changed';
+          }
+          else if(titleExist){
+            document.getElementById('edit-title-error').innerHTML = 'This title already exists';
+          }
+          else if(todoTime == data[index].time){
+            document.getElementById('edit-time-error').innerHTML = 'The time did not changed';   
+          }
+          else {
+            document.getElementById('edit-title-error').innerHTML = 'Сhange the title...';
+            document.getElementById('edit-time-error').innerHTML = '...or time...';
+            document.getElementById('edit-prior-error').innerHTML = '...or at least a priority';
+        }}
+        else{
+          document.getElementById('edit-time-error').innerHTML = 'The time is incorrect'; 
+        }
+
+        if(myBool){
+          data.splice(index, 1, {title: todoTitle, completed: data[index].completed, time: todoTime, prior: inputPrior})
+          this.setState({data: data});
+          this.setState({iedit: -1});
+          this.sort(this.state.sort);
+          this.chooseDisplay(0);
+        };
+          
+      } 
       chooseDisplay (index){
         let display = this.state.display;
         switch (index) {
@@ -397,6 +505,15 @@
             break;
         }
         this.setState({display: display});
+        
+        document.getElementById("edit-title-error").innerHTML = '';
+        document.getElementById('edit-time-error').innerHTML = '';
+        document.getElementById('edit-prior-error').innerHTML = '';
+        document.getElementById('add-title-error').innerHTML = '';
+        document.getElementById('add-time-error').innerHTML = '';
+        let pp = document.getElementsByTagName('input');
+        for(let i = 0; i < pp.length; i++)
+          pp[i].value = '';
       }
       deleteAll(){
         let data = this.state.data;
@@ -417,17 +534,23 @@
             deleteAll = {this.deleteAll}          
           />
           <TodoList 
-            todolist={this.state.data}
-            remove={this.removeTodo}
-            complete={this.completeTodo}
-            editindex = {this.editIndex}
-            chooseDisplay={this.chooseDisplay}
-            display = {this.state.display}
-          />
+          todolist={this.state.data}
+          remove={this.removeTodo}
+          complete={this.completeTodo}
+          editindex = {this.editIndex}
+          chooseDisplay={this.chooseDisplay}
+          display = {this.state.display}
+        />
           <AddTask 
             addTodo={this.addTodo} 
             chooseDisplay={this.chooseDisplay} 
             display = {this.state.display}
+          />
+          <EditTask 
+            editTodo={this.editTodo} 
+            data={this.state.data} 
+            index = {this.state.iedit} 
+            display = {this.state.display} 
           />
         </div>
       );
