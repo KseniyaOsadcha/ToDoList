@@ -30,13 +30,6 @@ body{
     background-size: cover;
 }
 
-/*completed task*/
-
-.completed {
-    text-decoration: line-through;
-    color: grey !important;  
-  }
-
 /*menu, clock, header*/
 
 .title{
@@ -156,7 +149,34 @@ span::before{
     font-size: 1.2rem;
     margin-right: 0.5rem;
 }
+/*completed task*/
 
+.completed {
+    text-decoration: line-through;
+    color: rgba(0, 56, 5, 0.788) !important; 
+    text-decoration-color: #143b1bc0;
+  }
+
+input[type="checkbox"] {
+    display:none;
+}
+input[type="checkbox"] + label { 
+    cursor: pointer;
+    margin:-1px 4px 0 0;
+    vertical-align:middle;
+    cursor:pointer;
+}
+label{
+  
+    height:19px; 
+}
+#label-check{
+    color: rgb(1, 65, 4);
+}
+#label-uncheck{
+    color: rgb(65, 1, 1);   
+
+}
 
 /*style for priority*/
 

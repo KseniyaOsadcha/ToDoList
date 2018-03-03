@@ -189,7 +189,7 @@
         <div className="todo rel ii" >
           <div className="icons abs block">
               <div className="inline ic-ready" onClick={()=> {complete(todo)}}>
-                <input type="checkbox"/>
+                  <input type="checkbox"/><label for="checkbox" id={todo.completed == true? "label-check" : "label-uncheck"}><i className="fas fa-check-circle"></i></label>
               </div>
               <div className="inline ic-edit" onClick={() => {
                 
@@ -199,7 +199,7 @@
               <div className="inline ic-del" onClick={()=> {remove(todo)}}><i className="fas fa-trash-alt"></i></div>
           </div>
           <div className="todo-time abs">{todo.time}</div>
-          <div className={todo.completed?'completed':null}><div className="todo-title"><p className="todo-text" id={todo.prior}>{todo.title}</p></div></div>
+          <div className={todo.completed?'completed todo-title':'todo-title'} id={todo.prior}>{todo.title}</div>
 
         </div>
       );
