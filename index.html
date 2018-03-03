@@ -10,7 +10,7 @@
   
 </head>
 <body>
-
+    <div id="page-preloader"><h3 class="spinner"></h3></div>
     <div id="root"></div>
     <script
           src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -23,6 +23,12 @@
     <script src="script/jquery.mask.js"></script>
 
     <script>
+      $(window).on('load', function () {
+    var $preloader = $('#page-preloader'),
+        $spinner   = $preloader.find('.spinner');
+    $spinner.fadeOut();
+    $preloader.delay(350).fadeOut('slow');
+});
       $(document).ready(function(){
       $('.time').mask('00:00');})
     </script>
