@@ -22,29 +22,27 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
     <script src="script/jquery.mask.js"></script>
 
-    <script>
-      $(window).on('load', function () {
+<script>
+  $(window).on('load', function () {
     var $preloader = $('#page-preloader'),
         $spinner   = $preloader.find('.spinner');
     $spinner.fadeOut();
     $preloader.delay(350).fadeOut('slow');
 });
-      $(document).ready(function(){
-      $('.time').mask('00:00');})
-    </script>
-
-    <script type="text/babel">
-    
-    const Title = ({todolist, date, getmenu, menu, chooseDisplay, chooseSort, deleteAll}) => {
-      let count = 0;
-      todolist.forEach((todo) => {
-        todo.completed? null:count++;
-      });
-      let day, month, hour, min, myDate;
-      hour = date.getHours();
-      min = date.getMinutes();
-      myDate = date.getDate();
-      switch (date.getDay()) {
+  $(document).ready(function(){
+  $('.time').mask('00:00');})
+</script>
+  <script type="text/babel">
+  const Title = ({todolist, date, getmenu, menu, chooseDisplay, chooseSort, deleteAllDone, deleteAll}) => {
+    let count = 0;
+    todolist.forEach((todo) => {
+      todo.completed? null:count++;
+    });
+    let day, month, hour, min, myDate;
+    hour = date.getHours();
+    min = date.getMinutes();
+    myDate = date.getDate();
+    switch (date.getDay()) {
         case 0:
         day = "Sunday"
           break;
@@ -66,8 +64,8 @@
           case 6:
         day = "Saturday"
           break;
-      }
-      switch (date.getMonth()) {
+    }
+    switch (date.getMonth()) {
            case 0:
          month = "January " 
             break;
@@ -104,87 +102,86 @@
           case 11: 
          month = "December " 
            break;
-      }
-      if (hour < 10) hour = "0" + hour;
-      if (min < 10) min = "0" + min;
-      if (myDate < 10) myDate = "0" + myDate;
-      let sortTime = true;
-      return (
-        <div className="title">
-          <div className="todo-numb abs">ToDo ({count})</div>
-          <div className="title-time">{hour + " : " + min}</div>
-          <div className="title-date">{day + ", " + month + myDate}</div>
-          <div className="pull-r icon-setting" onClick={()=> {getmenu()}}><i className="fas fa-cog"></i></div>
-          <div className="menu abs" id={menu? 'block': 'block-none'}>
-            <ul className="menu-ul">
-              <li onClick={() => {
-                getmenu();
-                chooseDisplay(0);
-              }}><span className="rel">Home</span></li>
-              <li onClick={() => {
-                getmenu(); 
-                chooseDisplay(1);
-              }}><span className="rel">Add new task</span></li>
-              <li onClick={() => {
-                getmenu();               
-                chooseSort(sortTime);
-              }}><span className="rel">Sort by time</span></li>
-              <li onClick={() => {
-                getmenu();               
-                chooseSort(!sortTime);
-              }}><span className="rel">Sort by priority</span></li>
-              <li onClick={() => {
-              }}><span className="rel">Delete all done</span></li>
-              <li onClick={() => {
-                getmenu();                
-                deleteAll();
-              }}><span className="rel">Delete all tasks</span></li>
-            </ul>
-          </div>      
-        </div>
-      );
     }
-  
-    const AddTask = ({addTodo, chooseDisplay, display}) => {
-
-      let inputTask, inputTime, inputPrior;
+    if (hour < 10) hour = "0" + hour;
+    if (min < 10) min = "0" + min;
+    if (myDate < 10) myDate = "0" + myDate;
+    let sortTime = true;
       return (
-        
-        <div className="add-tasks" id = {display.add? "block" : "block-none"}>
-          <h1>Add new task</h1>
-          <div className="bl_form">
-            <input ref={node => {
-              inputTask = node;
-            }} placeholder="Add title" maxLength={40}/>
-            <p className="inline error-message" id="add-title-error"></p>
-          </div>
-          <div className="bl_form">
-            <input ref={node => {
-              inputTime = node;
-            }} placeholder="Add time" className ="time"/>
-            <p className="inline error-message" id="add-time-error"></p>
-          </div>
-          <div className="add-prior">
-          <p>Priority:</p>
-            <select ref={node => {
-              inputPrior = node;
-            }} >
-              <option id="option-simple" value="simple">Simple</option>
-              <option id="option-middle" value="middle">Middle</option>
-              <option id="option-hight" value="hight">Hight</option>            
-            </select>
-          </div>
-          <div className="btn-add" onClick={() => {
-            addTodo(inputTask.value, inputTime.value, inputPrior.value);
-          }}>
-              +Add
-          </div>
-        </div>
-      );
-    }
-  
+      <div className="title">
+        <div className="todo-numb abs">ToDo ({count})</div>
+        <div className="title-time">{hour + " : " + min}</div>
+        <div className="title-date">{day + ", " + month + myDate}</div>
+        <div className="pull-r icon-setting" onClick={()=> {getmenu()}}><i className="fas fa-cog"></i></div>
+        <div className="menu abs" id={menu? 'block': 'block-none'}>
+          <ul className="menu-ul">
+            <li onClick={() => {
+              getmenu();
+              chooseDisplay(0);
+            }}><span className="rel">Home</span></li>
+            <li onClick={() => {
+              getmenu(); 
+              chooseDisplay(1);
+            }}><span className="rel">Add new task</span></li>
+            <li onClick={() => {
+              getmenu();               
+              chooseSort(sortTime);
+            }}><span className="rel">Sort by time</span></li>
+            <li onClick={() => {
+              getmenu();               
+              chooseSort(!sortTime);
+            }}><span className="rel">Sort by priority</span></li>
+            <li onClick={() => {
+              getmenu();                            
+              deleteAllDone();
+            }}><span className="rel">Delete all done</span></li>
+            <li onClick={() => {
+              getmenu();                
+              deleteAll();
+            }}><span className="rel">Delete all tasks</span></li>
+          </ul>
+      </div>      
+      </div>
+    );
+  }
+  const AddTask = ({addTodo, chooseDisplay, display}) => {
 
-    
+    let inputTask, inputTime, inputPrior;
+    return (
+      
+      <div className="add-tasks" id = {display.add? "block" : "block-none"}>
+        <h1>Add new task</h1>
+        <div className="bl_form">
+          <input ref={node => {
+            inputTask = node;
+          }} placeholder="Add title" maxLength={40}/>
+          <p className="inline error-message" id="add-title-error"></p>
+        </div>
+        <div className="bl_form">
+          <input ref={node => {
+            inputTime = node;
+          }} placeholder="Add time" className ="time"/>
+          <p className="inline error-message" id="add-time-error"></p>
+        </div>
+        <div className="add-prior">
+        <p>Priority:</p>
+          <select ref={node => {
+            inputPrior = node;
+          }} >
+            <option id="option-simple" value="simple">Simple</option>
+            <option id="option-middle" value="middle">Middle</option>
+            <option id="option-hight" value="hight">Hight</option>            
+          </select>
+        </div>
+        <div className="btn-add" onClick={() => {
+          addTodo(inputTask.value, inputTime.value, inputPrior.value);
+        }}>
+            +Add
+        </div>
+      </div>
+    );
+  }
+
 const EditTask = ({editTodo, data, index, display}) => {
   let inputTask, inputTime, inputPrior;
   return (
@@ -222,99 +219,98 @@ const EditTask = ({editTodo, data, index, display}) => {
   );
 }
  
-const Todo = ({todo, remove, complete, editindex, chooseDisplay}) => {
-  // Each Todoid={getproir(todo)}
-  return (
-    <div className="todo rel ii" >
-      <div className="icons abs block">
-          <div className="inline ic-todo" onClick={()=> {complete(todo)}}>
-            <input type="checkbox"/><label for="checkbox" id={todo.completed == true? "label-check" : "label-uncheck"}><i className="fas fa-check-circle"></i></label>
-          </div>
-          <div className="inline ic-todo" onClick={() => {
-            editindex(todo);
-            chooseDisplay(2);
-          }}>
-          <i className="far fa-edit"></i>
-          </div>
-          <div className="inline ic-todo" onClick={()=> {remove(todo)}}><i className="fas fa-trash-alt"></i></div>
-      </div>
-      <div className="todo-time abs">{todo.time}</div>
-      <div className={todo.completed?'completed todo-title':'todo-title'} id={todo.prior}>{todo.title}</div>
-      
-    </div>
-    );
-}
-
-const TodoList = ({todolist, remove, complete, editindex, chooseDisplay, display}) => {
-  // Map through the todolist
-  const todoItem = todolist.map((todo) => {
+  const Todo = ({todo, remove, complete, editindex, chooseDisplay}) => {
     return (
-      <Todo 
-        todo={todo}
-        remove={remove} 
-        complete={complete} 
-        editindex = {editindex} 
-        chooseDisplay={chooseDisplay}
-      />)
-  });
-  return (
-    <div className='tasks' id = {display.list? "block" : "block-none"}>
-      {todoItem}
-    </div>
-  );
-}
+      <div className="todo rel ii" >
+        <div className="icons abs block">
+            <div className="inline ic-todo" onClick={()=> {complete(todo)}}>
+              <input type="checkbox"/><label for="checkbox" id={todo.completed == true? "label-check" : "label-uncheck"}><i className="fas fa-check-circle"></i></label>
+            </div>
+            <div className="inline ic-todo" onClick={() => {
+              editindex(todo);
+              chooseDisplay(2);
+            }}>
+            <i className="far fa-edit"></i>
+            </div>
+            <div className="inline ic-todo" onClick={()=> {remove(todo)}}><i className="fas fa-trash-alt"></i></div>
+        </div>
+        <div className="todo-time abs">{todo.time}</div>
+        <div className={todo.completed?'completed todo-title':'todo-title'} id={todo.prior}>{todo.title}</div>
+        
+      </div>
+      );
+  }
+
+  const TodoList = ({todolist, remove, complete, editindex, chooseDisplay, display}) => {
+    const todoItem = todolist.map((todo) => {
+      return (
+        <Todo 
+          todo={todo}
+          remove={remove} 
+          complete={complete} 
+          editindex = {editindex} 
+          chooseDisplay={chooseDisplay}
+        />)
+    });
+    return (
+      <div className='tasks' id = {display.list? "block" : "block-none"}>
+        {todoItem}
+      </div>
+    );
+  }
   
-    class TodoApp extends React.Component {
-      constructor(props) {
-        super(props);
-        this.tick = this.tick.bind(this)     
-        this.getMenu = this.getMenu.bind(this)
-        this.chooseSort = this.chooseSort.bind(this)
-        this.sort = this.sort.bind(this)
-        this.removeTodo = this.removeTodo.bind(this)
-        this.indexOfElement = this.indexOfElement.bind(this)
-        this.completeTodo = this.completeTodo.bind(this)
-        this.editIndex = this.editIndex.bind(this)
-        this.addTodo = this.addTodo.bind(this)
-        this.editTodo = this.editTodo.bind(this)
-        this.chooseDisplay = this.chooseDisplay.bind(this)
-        this.deleteAll = this.deleteAll.bind(this)
-        this.state = {
-          date: new Date(),
-          menu: false,
-          sort: true,
-          display: {list: true, add: false, edit: false},
-          iedit: -1,
-          data: [
-            {title: "buy milk",completed: false,time: "11:30", prior: "middle"},
-            {title: "send letter",completed: false,time: "00:23", prior: "simple"},
-            {title: "meet with friend",completed: false,time: "21:40", prior: "hight"},
-            {title: "buy milkiiiiii",completed: false,time: "11:30", prior: "simple"}          
-          ] 
-          
-        }
+  class TodoApp extends React.Component {
+    constructor(props) {
+      super(props);
+      this.tick = this.tick.bind(this)     
+      this.getMenu = this.getMenu.bind(this)
+      this.chooseSort = this.chooseSort.bind(this)
+      this.sort = this.sort.bind(this)
+      this.removeTodo = this.removeTodo.bind(this)
+      this.indexOfElement = this.indexOfElement.bind(this)
+      this.completeTodo = this.completeTodo.bind(this)
+      this.editIndex = this.editIndex.bind(this)
+      this.addTodo = this.addTodo.bind(this)
+      this.editTodo = this.editTodo.bind(this)
+      this.chooseDisplay = this.chooseDisplay.bind(this)
+      this.deleteAll = this.deleteAll.bind(this)
+      this.deleteAllDone = this.deleteAllDone.bind(this)
+      this.state = {
+        date: new Date(),
+        menu: false,
+        sort: true,
+        display: {list: true, add: false, edit: false},
+        iedit: -1,
+        data: [
+          {title: "buy milk",completed: false,time: "11:30", prior: "middle"},
+          {title: "send letter",completed: false,time: "00:23", prior: "simple"},
+          {title: "meet with friend",completed: false,time: "21:40", prior: "hight"},
+          {title: "buy milkiiiiii",completed: false,time: "11:30", prior: "simple"}          
+        ] 
+        
       }
-      componentDidMount() {
-        this.timerID = setInterval(
-          () => this.tick(),
-          1000
-        );
-      }
+    }
+    componentDidMount() {
+      this.timerID = setInterval(
+        () => this.tick(),
+        1000
+      );
+    }
 
-      componentWillUnmount() {
-        clearInterval(this.timerID);
-      }
+    componentWillUnmount() {
+      clearInterval(this.timerID);
+    }
 
-      tick() {
-        this.setState({
-          date: new Date()
-        });
-      }
-      getMenu(){
-        let menu = this.state.menu;
-        this.setState({menu: !menu});
-      }
-      chooseSort(parametr){
+    tick() {
+      this.setState({
+        date: new Date()
+      });
+    }
+    getMenu(){
+      let menu = this.state.menu;
+      this.setState({menu: !menu});
+    }
+    chooseSort(parametr){
       this.setState({sort: parametr});
       this.sort(parametr);
     }
@@ -348,76 +344,76 @@ const TodoList = ({todolist, remove, complete, editindex, chooseDisplay, display
       console.log(data);
       this.setState({data: data});
     }
-      indexOfElement(todo){
-        let data = this.state.data;
-        let indexOf = -1
-        data.forEach((item, index) => {
-          if(item.title === todo.title){
-            indexOf = index;
-          }
-        })    
-        return indexOf;
-      }
-
-      removeTodo(todo){
-        let data = this.state.data;
-        let indexOfRemovedElem= this.indexOfElement(todo)
-        console.log(data.indexOf(todo))
-        data.splice(indexOfRemovedElem, 1)
-        this.setState({data: data})
-        //alert(data[0].completed)
-        console.log(data.title)
-      }
-
-      completeTodo(todo){
-        let data = this.state.data;
-        let indexOfElem = this.indexOfElement(todo)
-        data.splice(indexOfElem, 1, {title:todo.title, completed:!todo.completed, time: todo.time, prior: todo.prior})
-        this.setState({data: data})
-        console.log(this.state.data)
-      }
-      editIndex(todo){
+    indexOfElement(todo){
+      let data = this.state.data;
+      let indexOf = -1
+      data.forEach((item, index) => {
+        if(item.title === todo.title){
+          indexOf = index;
+        }
+      })    
+      return indexOf;
+    }
+    
+    removeTodo(todo){
+      let data = this.state.data;
+      let indexOfRemovedElem= this.indexOfElement(todo)
+      console.log(data.indexOf(todo))
+      data.splice(indexOfRemovedElem, 1)
+      this.setState({data: data})
+      //alert(data[0].completed)
+      console.log(data.title)
+    }
+    
+    completeTodo(todo){
+      let data = this.state.data;
+      let indexOfElem = this.indexOfElement(todo)
+      data.splice(indexOfElem, 1, {title:todo.title, completed:!todo.completed, time: todo.time, prior: todo.prior})
+      this.setState({data: data})
+      console.log(this.state.data)
+    }
+    editIndex(todo){
         let iedit = this.state.iedit;
         iedit = this.indexOfElement(todo);
         this.setState({iedit: iedit})
       }
-      addTodo(todoTitle, todoTime, inputPrior){
-        document.getElementById('add-title-error').innerHTML = '';
-        document.getElementById('add-time-error').innerHTML = '';
-        let data = this.state.data;
-        let myBool = true;
-        let min, sec;
-        inputPrior = inputPrior || "";
-        data.forEach((todo) => {
-          if(todoTitle.trim() == todo.title){
-            myBool = false;
-            document.getElementById('add-title-error').innerHTML = 'This title already exists';
-          }
-        });
-        if(todoTime ==""){ 
-          document.getElementById('add-time-error').innerHTML = 'Enter time';
+    addTodo(todoTitle, todoTime, inputPrior){
+      document.getElementById('add-title-error').innerHTML = '';
+      document.getElementById('add-time-error').innerHTML = '';
+      let data = this.state.data;
+      let myBool = true;
+      let min, sec;
+      inputPrior = inputPrior || "";
+      data.forEach((todo) => {
+        if(todoTitle.trim() == todo.title){
           myBool = false;
+          document.getElementById('add-title-error').innerHTML = 'This title already exists';
         }
-        else{
-          min = parseInt(todoTime[0] + todoTime[1]);
-          sec = parseInt(todoTime[3] + todoTime[4])
-          if(todoTime.length != 5 || min > 23 || sec > 59){
-            myBool = false;
-            document.getElementById('add-time-error').innerHTML = 'The time is incorrect'; 
-        }}
-        if(todoTitle.trim() ==""){ 
-          document.getElementById('add-title-error').innerHTML = 'Enter title';
-          myBool = false;
-        }
-        if(myBool){
-          data.push({title: todoTitle, completed: false, time: todoTime, prior: inputPrior});
-          this.setState({data: data});
-          console.log(this.state.data);
-          this.sort(this.state.sort);
-          this.chooseDisplay(0);  
-        }
+      });
+      if(todoTime ==""){ 
+        document.getElementById('add-time-error').innerHTML = 'Enter time';
+        myBool = false;
       }
-        
+      else{
+        min = parseInt(todoTime[0] + todoTime[1]);
+        sec = parseInt(todoTime[3] + todoTime[4])
+        if(todoTime.length != 5 || min > 23 || sec > 59){
+          myBool = false;
+          document.getElementById('add-time-error').innerHTML = 'The time is incorrect'; 
+      }}
+      if(todoTitle.trim() ==""){ 
+        document.getElementById('add-title-error').innerHTML = 'Enter title';
+        myBool = false;
+      }
+      if(myBool){
+        data.push({title: todoTitle, completed: false, time: todoTime, prior: inputPrior});
+        this.setState({data: data});
+        console.log(this.state.data);
+        this.sort(this.state.sort);
+        this.chooseDisplay(0);  
+      }
+    }
+      
       editTodo(todoTitle, todoTime, index, inputPrior){   
         document.getElementById('edit-title-error').innerHTML = '';
         document.getElementById('edit-time-error').innerHTML = '';
@@ -519,9 +515,29 @@ const TodoList = ({todolist, remove, complete, editindex, chooseDisplay, display
         let data = this.state.data;
         data.splice(0, data.length);
         this.setState({data: data});
+        this.setState({iedit: -1});
+        this.chooseDisplay(0);
+      }
+      deleteAllDone(){
+        this.setState({iedit: -1});
+        this.chooseDisplay(0);
+        let data = this.state.data;
+        let length = data.length;
+        for(let i = 0; i < length; i++){
+          //console.log(data[i]);
+          if(data[i].completed == true){
+            data.splice(i, 1);
+            this.setState({data: data});
+            i--;
+            length--;
+          }
+          //console.log(data[i]);
+          //console.log(length);
+        }
+        console.log(data);
       }
 
-      render() {
+    render() {
       return (
         <div>
           <Title 
@@ -530,17 +546,18 @@ const TodoList = ({todolist, remove, complete, editindex, chooseDisplay, display
             getmenu = {this.getMenu} 
             menu={this.state.menu}
             chooseDisplay={this.chooseDisplay}
-            chooseSort = {this.chooseSort}  
-            deleteAll = {this.deleteAll}          
+            chooseSort = {this.chooseSort}
+            deleteAllDone = {this.deleteAllDone}
+            deleteAll = {this.deleteAll}
           />
           <TodoList 
-          todolist={this.state.data}
-          remove={this.removeTodo}
-          complete={this.completeTodo}
-          editindex = {this.editIndex}
-          chooseDisplay={this.chooseDisplay}
-          display = {this.state.display}
-        />
+            todolist={this.state.data}
+            remove={this.removeTodo}
+            complete={this.completeTodo}
+            editindex = {this.editIndex}
+            chooseDisplay={this.chooseDisplay}
+            display = {this.state.display}
+          />
           <AddTask 
             addTodo={this.addTodo} 
             chooseDisplay={this.chooseDisplay} 
@@ -554,13 +571,13 @@ const TodoList = ({todolist, remove, complete, editindex, chooseDisplay, display
           />
         </div>
       );
-      }
     }
+  }
   
-    ReactDOM.render(
-      <TodoApp />,
-      document.getElementById('root')
-    );
-    </script>
+  ReactDOM.render(
+    <TodoApp />,
+    document.getElementById('root')
+  );
+  </script>
 </body>
 </html>
