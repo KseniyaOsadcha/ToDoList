@@ -124,6 +124,14 @@ span::before{
     border-top: 0.2rem solid rgba(126, 37, 37, 0.5);
     
 }
+.guide{
+    color: #4b4b4b;
+    top: 6rem;
+    left: 2rem;
+    text-align: center;
+    max-width: 43rem;
+    font-size: 1.2rem;
+}
 .todo{
     border-bottom: 0.2rem solid rgba(126, 37, 37, 0.5);
 }

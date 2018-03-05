@@ -16,7 +16,6 @@
           src="https://code.jquery.com/jquery-2.2.4.min.js"
           integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
           crossorigin="anonymous"></script>
-    <script type="text/javascript" src="jquery.label_better.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/6.24.0/babel.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/react/15.1.0/react-dom.min.js"></script>
@@ -253,7 +252,13 @@ const EditTask = ({editTodo, data, index, display}) => {
         />)
     });
     return (
-      <div className='tasks' id = {display.list? "block" : "block-none"}>
+      <div className='tasks rel' id = {display.list? "block" : "block-none"}>
+
+        <div className="abs guide" id={todolist.length == 0? "block" : "block-none"}>
+          <p>Hello! Let's start!</p>
+          <p>Click the "Settings" button, it looks like this: <i className="fas fa-cog"></i>. Then click "Add new task".</p>
+          <p>Good luck!:)</p>
+        </div>
         {todoItem}
       </div>
     );
@@ -281,13 +286,7 @@ const EditTask = ({editTodo, data, index, display}) => {
         sort: true,
         display: {list: true, add: false, edit: false},
         iedit: -1,
-        data: [
-          {title: "buy milk",completed: false,time: "11:30", prior: "middle"},
-          {title: "send letter",completed: false,time: "00:23", prior: "simple"},
-          {title: "meet with friend",completed: false,time: "21:40", prior: "hight"},
-          {title: "buy milkiiiiii",completed: false,time: "11:30", prior: "simple"}          
-        ] 
-        
+        data: [] 
       }
     }
     componentDidMount() {
